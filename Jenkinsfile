@@ -5,7 +5,8 @@ pipeline {
        stage('Build') {
            steps {
                echo 'Building..'
-               sh './webappdemo/gradlew assembly'
+               sh './webappdemo/gradlew assemble'
+               archiveArtifacts 'webappdemo/build/reports/test/*.war'
            }
        }
        stage('Test') {
