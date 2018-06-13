@@ -8,38 +8,59 @@ public class GreeterTest {
     public void testGetGreeting() {
         assertEquals("hello Gradle", "hello Gradle");
     }
+
+    @Test
+    public void testGetGreeting1() {
+        assertEquals("hello Gradle", "hello Gradle");
+    }
+
+    @Test
+    public void testGetGreeting2() {
+        assertEquals("hello Gradle", "hello Gradle");
+    }
+
+    @Test
+    public void testGetGreeting3() {
+        assertEquals("hello Gradle", "hello Gradle");
+    }
+
+    @Test
+    public void testGetGreeting4() {
+        assertEquals("hello Gradle", "hello Gradle");
+    }
+
     @Test
     public void testAssertEquals() {
-      assertEquals("failure - strings are not equal", "text", "text");
+        assertEquals("failure - strings are not equal", "text", "text");
     }
-  
+
     @Test
     public void testAssertFalse() {
-      assertFalse("failure - should be false", false);
+        assertFalse("failure - should be false", false);
     }
-  
+
     @Test
     public void testAssertNotNull() {
-      assertNotNull("should not be null", new Object());
+        assertNotNull("should not be null", new Object());
     }
-  
+
     @Test
     public void testAssertNotSame() {
-      assertNotSame("should not be same Object", new Object(), new Object());
+        assertNotSame("should not be same Object", new Object(), new Object());
     }
-  
+
     @Test
     public void testAssertNull() {
-      assertNull("should be null", null);
+        assertNull("should be null", null);
     }
-  
+
     @Test
     public void testAssertSame() {
-      assertSame("should be same", 3, 3);
+        assertSame("should be same", 3, 3);
     }
 
     @Test
     public void testAssertTrue() {
-      assertTrue("failure - should be true", true);
+        assertTrue("failure - should be true", true);
     }
 }
