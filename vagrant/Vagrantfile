@@ -34,7 +34,7 @@ Vagrant.configure('2') do |config|
     s.vm.provision "docker_compose", compose_version: '1.21.2', yml: "/home/ubuntu/docker/docker-compose.yml", run: "always"
   end
 
-  config.vm.define 'server-22' do |s|
+  config.vm.define 'server-2' do |s|
     s.vm.provision "shell", inline: "sudo apt-get install default-jdk -y"
     s.vm.provider :openstack do |os, override|
       os.server_name = "#{ENV['OS_INITIALS']}-dev-server"
