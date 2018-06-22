@@ -1,12 +1,15 @@
 #format_version: 2
 pipelines:
-  fa-webapp-ci:
+  js-webapp-ci:
     group: WEBAPP
     materials:
       repo:
         git: https://github.com/fmiquiza/FI.git
     stages:
       - build:
+          fetch_materials: yes
+          keep_artifacts: yes
+          clean_workspace: yes
           jobs:
             assemble:
               artifacts:
@@ -22,21 +25,58 @@ pipelines:
                     - "-p"
                     - "webappdemo"
       - Test:
+          fetch_materials: no
+          keep_artifacts: yes
+          clean_workspace: no
+          jobs:
+            unit_tests:
+              artifacts:
+                - build:
+                    source: webappdemo/build/reports/tests/test/**/*
+                    destination: html_report
+                - test:
+                    source: webappdemo/build/test-results/test/*.xml
+                    destination: test_results/
+              tabs:
+                report: html_report/index.html
+              tasks:
+              - exec:
+                  command: ./webappdemo/gradlew
+                  arguments:
+                  - "test"
+                  - "-p"
+                  - "webappdemo"
+      - Deploy:
+          fetch_materials: no
+          keep_artifacts: yes
+          clean_workspace: no
+          jobs:
+            deployment:
+              tasks:
+              - exec:
+                  command: ./webappdemo/gradlew
+                  arguments:
+                  - "-b"
+                  - "deploy.gradle"
+                  - "deploy"
+                  - "-p"
+                  - "webappdemo"
+                  - "-Puser_home=/home/go/.ssh"
+                  - "--info"
+
+      - Acceptance:
             jobs:
-              unit_tests:
+              acceptance_test:
                 artifacts:
-                  - build:
-                      source: webappdemo/build/reports/tests/test/**/*
-                      destination: html_report
                   - test:
-                      source: webappdemo/build/test-results/test/*.xml
-                      destination: test_results/
+                      source: acceptance/build/reports/cucumber/*
+                      destination: cucumber_report
                 tabs:
-                  report: html_report/index.html
+                  report: cucumber_report/index.html
                 tasks:
                 - exec:
-                    command: ./webappdemo/gradlew
+                    command: ./acceptance/gradlew
                     arguments:
                     - "test"
                     - "-p"
-                    - "webappdemo"
+                    - "acceptance"
